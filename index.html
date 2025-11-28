@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SkyTrail Travels - Explore the World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --accent: #f97316;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --radius: 16px;
+            --shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #0b1120;
+            color: #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 0 rgba(15,23,42,0.5);
+        }
+
+        .nav {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 20% 20%, #facc15, #0ea5e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #0b1120;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: #9ca3af;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            color: #e5e7eb;
+            opacity: 0.85;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: #fff;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .nav-cta span {
+            font-size: 0.85rem;
+            color: #cbd5f5;
+        }
+
+        .nav-btn {
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary);
+            color: #0b1120;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            color: #e5e7eb;
+        }
+
+        /* MAIN LAYOUT */
+
+        main {
+            max-width: 1150px;
+            margin: 1.5rem auto 2.5rem;
+            padding: 0 1.5rem;
+        }
+
+        /* HERO */
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+            gap: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 3vw, 2.6rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0.9rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            border: none;
+            background: var(--accent);
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #ea580c;
+        }
+
+        .btn-outline {
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .hero-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.6rem;
+        }
+
+        .hero-image {
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            min-height: 250px;
+            background: radial-gradient(circle at top, #38bdf8, #0f172a);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .hero-label {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            background: rgba(15, 23, 42, 0.85);
+            color: #f9fafb;
+            padding: 0.7rem 0.85rem;
+            border-radius: 14px;
+            font-size: 0.8rem;
+        }
+
+        .hero-label strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        /* SECTION HEADINGS */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.8rem;
+            gap: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+        }
+
+        .section-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* TOUR PACKAGES */
+
+        .packages {
+            margin-bottom: 2rem;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .package-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .package-image {
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .package-card:hover .package-image img {
+            transform: scale(1.06);
+        }
+
+        .package-body {
+            padding: 0.8rem 0.9rem 0.9rem;
+            font-size: 0.86rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .package-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #0ea5e9;
+        }
+
+        .package-title {
+            font-weight: 600;
+            font-size: 0.98rem;
+        }
+
+        .package-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .package-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.3rem;
+        }
+
+        .chip {
+            padding: 0.15rem 0.6rem;
+            border-radius: 999px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.72rem;
+        }
+
+        .package-footer {
+            margin-top: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .duration {
+            color: var(--text-muted);
+        }
+
+        /* BOOKING + TIPS */
+
+        .layout-two {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .booking-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1rem 1.05rem 1.1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .booking-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .booking-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.7rem;
+        }
+
+        .booking-form .field {
+            margin-bottom: 0.65rem;
+        }
+
+        .booking-form label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 0.5rem 0.6rem;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.86rem;
+            outline: none;
+            resize: vertical;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .booking-form .inline {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .booking-btn {
+            margin-top: 0.2rem;
+            width: 100%;
+            padding: 0.6rem 0.7rem;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary);
+            color: #0b1120;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .booking-btn:hover {
+            background: var(--primary-dark);
+            color: #e5e7eb;
+        }
+
+        .small-note {
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .tips-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1rem 1.05rem 1.1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .tips-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .tips-intro {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .tips-list {
+            list-style: none;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .tips-list li {
+            padding: 0.4rem 0.45rem;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px dashed #e2e8f0;
+        }
+
+        .tips-heading {
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.6rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 150px;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item.tall {
+            height: 200px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-label {
+            position: absolute;
+            left: 0.6rem;
+            bottom: 0.6rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #f9fafb;
+            font-size: 0.74rem;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem 1.5rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1024px) {
+            .package-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 860px) {
+            .nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none; /* simple mobile nav without JS */
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .layout-two {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                padding: 0 1rem;
+            }
+
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-item.tall {
+                height: 170px;
+            }
+
+            .hero-image {
+                border-radius: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="nav">
+        <div class="logo">
+            <div class="logo-icon">ST</div>
+            <div>
+                <div class="logo-text">SkyTrail Travels</div>
+                <div class="logo-sub">Tours • Holidays • Adventures</div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="#tours">Tours</a>
+            <a href="#booking">Book Now</a>
+            <a href="#tips">Travel Tips</a>
+            <a href="#gallery">Gallery</a>
+        </div>
+
+        <div class="nav-cta">
+            <span>Call: +91-98765-43210</span>
+            <button class="nav-btn">Plan My Trip</button>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Discover your next unforgettable journey.</h1>
+            <p>
+                From tropical beaches to snowy mountains, SkyTrail Travels curates
+                hassle-free tour packages with flights, stays, and guided experiences included.
+            </p>
+
+            <div class="hero-badges">
+                <span class="badge">✔ 100% Customizable Trips</span>
+                <span class="badge">✔ EMI & Group Discounts</span>
+                <span class="badge">✔ 24x7 Travel Support</span>
+            </div>
+
+            <div class="hero-actions">
+                <button class="btn-primary">View Tour Packages</button>
+                <button class="btn-outline">Quick Enquiry</button>
+            </div>
+            <p class="hero-note">
+                Mention your budget & dates in the booking form – our team will send you best-matching packages.
+            </p>
+        </div>
+
+        <div class="hero-image">
+            <!-- HERO IMAGE (Beach / Mountain / Travel) -->
+            <img src="https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                 alt="Beautiful tropical island beach with clear water">
+            <div class="hero-label">
+                <strong>Maldives Escape</strong>
+                5N / 6D • Flights + Resort • Starting at ₹68,999/-
+            </div>
+        </div>
+    </section>
+
+    <!-- TOUR PACKAGES -->
+    <section class="packages" id="tours">
+        <div class="section-header">
+            <h2 class="section-title">Popular Tour Packages</h2>
+            <p class="section-sub">Hand-picked experiences for your next vacation</p>
+        </div>
+
+        <div class="package-grid">
+            <!-- Package 1 -->
+            <article class="package-card">
+                <div class="package-image">
+                    <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg?auto=compress&cs=tinysrgb&w=800"
+                         alt="Snow mountains and town in Switzerland">
+                </div>
+                <div class="package-body">
+                    <div class="package-tag">International</div>
+                    <h3 class="package-title">Swiss Alps & Scenic Europe</h3>
+                    <p class="package-meta">
+                        Zurich • Interlaken • Paris • Amsterdam – guided city tours, cable car rides and more.
+                    </p>
+                    <div class="package-highlights">
+                        <span class="chip">7N / 8D</span>
+                        <span class="chip">Breakfast & Hotels</span>
+                        <span class="chip">Visa Support</span>
+                    </div>
+                    <div class="package-footer">
+                        <span class="price">From ₹1,59,999/-</span>
+                        <span class="duration">Group & Custom</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Package 2 -->
+            <article class="package-card">
+                <div class="package-image">
+                    <img src="https://images.pexels.com/photos/1796724/pexels-photo-1796724.jpeg?auto=compress&cs=tinysrgb&w=800"
+                         alt="Boat and mountains in Kerala backwaters">
+                </div>
+                <div class="package-body">
+                    <div class="package-tag">India</div>
+                    <h3 class="package-title">Kerala Backwaters & Hills</h3>
+                    <p class="package-meta">
+                        Munnar • Alleppey • Thekkady – tea gardens, houseboat stay, spice plantations and more.
+                    </p>
+                    <div class="package-highlights">
+                        <span class="chip">5N / 6D</span>
+                        <span class="chip">Private Cab</span>
+                        <span class="chip">Breakfast & Dinner</span>
+                    </div>
+                    <div class="package-footer">
+                        <span class="price">From ₹24,999/-</span>
+                        <span class="duration">Family Friendly</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Package 3 -->
+            <article class="package-card">
+                <div class="package-image">
+                    <img src="https://images.pexels.com/photos/1430677/pexels-photo-1430677.jpeg?auto=compress&cs=tinysrgb&w=800"
+                         alt="Desert dunes and camel safari in Rajasthan">
+                </div>
+                <div class="package-body">
+                    <div class="package-tag">India • Heritage</div>
+                    <h3 class="package-title">Royal Rajasthan Desert Trail</h3>
+                    <p class="package-meta">
+                        Jaipur • Jaisalmer • Jodhpur – forts, palaces, desert camps, and cultural evenings.
+                    </p>
+                    <div class="package-highlights">
+                        <span class="chip">6N / 7D</span>
+                        <span class="chip">Desert Camp</span>
+                        <span class="chip">Guide Included</span>
+                    </div>
+                    <div class="package-footer">
+                        <span class="price">From ₹27,999/-</span>
+                        <span class="duration">Best Oct–Feb</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- BOOKING + TIPS -->
+    <section class="layout-two">
+        <!-- Booking -->
+        <div class="booking-card" id="booking">
+            <h2>Quick Trip Booking</h2>
+            <p class="booking-sub">
+                Fill a few details and our travel expert will call you with the best deals within 24 hours.
+            </p>
+            <form class="booking-form">
+                <div class="field inline">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div>
+                        <label for="phone">Mobile Number</label>
+                        <input type="tel" id="phone" placeholder="+91-XXXXXXXXXX">
+                    </div>
+                </div>
+
+                <div class="field inline">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <label for="destination">Preferred Destination</label>
+                        <select id="destination">
+                            <option>Choose destination</option>
+                            <option>Maldives</option>
+                            <option>Dubai</option>
+                            <option>Kerala</option>
+                            <option>Rajasthan</option>
+                            <option>Europe</option>
+                            <option>Other (Mention Below)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field inline">
+                    <div>
+                        <label for="start-date">Start Date</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div>
+                        <label for="days">Trip Duration (Days)</label>
+                        <input type="number" id="days" placeholder="e.g. 5">
+                    </div>
+                </div>
+
+                <div class="field inline">
+                    <div>
+                        <label for="travellers">No. of Travellers</label>
+                        <input type="number" id="travellers" placeholder="e.g. 2 Adults & 1 Child">
+                    </div>
+                    <div>
+                        <label for="budget">Approx. Budget (₹)</label>
+                        <input type="number" id="budget" placeholder="e.g. 50000">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="message">Anything specific you want? (Hotel type, activities, etc.)</label>
+                    <textarea id="message" rows="3"
+                              placeholder="Write your preferences here..."></textarea>
+                </div>
+
+                <button type="submit" class="booking-btn">Submit Booking Request</button>
+                <p class="small-note">
+                    By submitting, you allow SkyTrail Travels to contact you via call / WhatsApp / email
+                    regarding this enquiry.
+                </p>
+            </form>
+        </div>
+
+        <!-- Tips -->
+        <aside class="tips-card" id="tips">
+            <h2>Smart Travel Tips</h2>
+            <p class="tips-intro">
+                A few simple ideas to make your journey smoother, safer and more memorable.
+            </p>
+            <ul class="tips-list">
+                <li>
+                    <div class="tips-heading">1. Keep documents in digital + physical form</div>
+                    Always carry soft copies of passport, ID, tickets and hotel vouchers in your email / phone,
+                    along with one printed set.
+                </li>
+                <li>
+                    <div class="tips-heading">2. Travel light but smart</div>
+                    Pack versatile clothes, a light jacket, basic medicines, and a universal adapter instead of
+                    stuffing your luggage.
+                </li>
+                <li>
+                    <div class="tips-heading">3. Respect local culture</div>
+                    Learn a few basic phrases, follow dress codes (if any), and be mindful of local customs and
+                    photography rules.
+                </li>
+                <li>
+                    <div class="tips-heading">4. Keep some local currency handy</div>
+                    Even if you use cards / UPI, small shops, taxis or local markets may prefer cash.
+                </li>
+            </ul>
+        </aside>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2 class="section-title">Gallery of Destinations</h2>
+            <p class="section-sub">Some of the places our travellers loved the most</p>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Each image is high quality from Pexels (online) -->
+            <div class="gallery-item wide">
+                <img src="https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                     alt="Santorini Greece blue domes">
+                <span class="gallery-label">Santorini, Greece</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Bali temple and lake">
+                <span class="gallery-label">Bali, Indonesia</span>
+            </div>
+            <div class="gallery-item tall">
+                <img src="https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Snow mountains and lake in New Zealand">
+                <span class="gallery-label">Queenstown, New Zealand</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/237272/pexels-photo-237272.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Taj Mahal India at sunrise">
+                <span class="gallery-label">Agra, India</span>
+            </div>
+            <div class="gallery-item tall">
+                <img src="https://images.pexels.com/photos/460376/pexels-photo-460376.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Dubai skyline and Burj Khalifa">
+                <span class="gallery-label">Dubai, UAE</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Paris Eiffel Tower and sunset">
+                <span class="gallery-label">Paris, France</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800"
+                     alt="Goa beach with palm trees">
+                <span class="gallery-label">Goa, India</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 SkyTrail Travels. All rights reserved. | This website layout is created for study / project purposes.
+</footer>
+
+</body>
+</html>
